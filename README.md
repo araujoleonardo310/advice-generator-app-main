@@ -17,7 +17,7 @@ This is a solution to the [Advice generator app challenge on Frontend Mentor](ht
 
 ## Overview
 
-![](./assets/screenshot/overview-project.png)
+![](./assets/screenshot/overview.png)
 
 ### The challenge
 
