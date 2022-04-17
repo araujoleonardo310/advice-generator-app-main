@@ -1,24 +1,43 @@
-// variáveis
-const API_AdviceSlip = new Request("https://api.adviceslip.com/advice");
-const contentTitle = document.getElementsByClassName("title")[0]
-const contentParagraph = document.getElementsByClassName("content")[0]
-const mainBtn = document.querySelector("button")
+// variables necessaries of manipulation
+const main = document.getElementsByClassName("main")[0];
+const mainBtn = document.querySelector("button");
+const divider = document.querySelector(".divider");
 
-// Requisição e extração de Frase e id
-const fetchPhrase = () => {
-  fetch(API_AdviceSlip).then(response => response.json().then(data => {
-    contentTitle.textContent = `adivice #${data.slip.id}`
-    contentParagraph.textContent = `"${data.slip.advice}"`;
-  }))
+// Requisitation and creation of elements
+function fetchPhrase() {
+  const createElementTitle = document.createElement("p");
+  const createElementParagraph = document.createElement("p");
+  main.insertBefore(createElementTitle, divider);
+  main.insertBefore(createElementParagraph, divider);
+  createElementTitle.classList.add("title");
+  createElementParagraph.classList.add("content");
+  createElementTitle.innerHTML = `adivice #`;
+  createElementParagraph.innerHTML = `"`;
+
+  fetch(`https://api.adviceslip.com/advice`, { method: "GET" })
+    .then((response) => response.json())
+    .then((data) => {
+      createElementTitle.innerHTML += `${data.slip.id}`;
+      createElementParagraph.innerHTML += `${data.slip.advice}"`;
+    });
 }
 
-// Buscando uma nova frase
-// Nota: é precisa aguardar 2 segundos para obter uma nova frase na api
-function NewPhrase(e) {
-  e.preventDefault() 
-  fetchPhrase()  
+// Validation if elements exists
+function isCreateElements() {
+  const contentTitle = document.getElementsByClassName("title")[0];
+  const contentParagraph = document.getElementsByClassName("content")[0];
+  return contentTitle && contentParagraph ? true : false;
 }
 
-// Button Onclick
-mainBtn.onclick = (e) => NewPhrase(e);
+// Button solicitation 
+mainBtn.addEventListener("click", function () {
+  //verificação de elementos existentes
+  if (isCreateElements()) {
+    const contentTitle = document.getElementsByClassName("title")[0];
+    const contentParagraph = document.getElementsByClassName("content")[0];
+    main.removeChild(contentTitle);
+    main.removeChild(contentParagraph);
+  }
 
+  fetchPhrase();
+});

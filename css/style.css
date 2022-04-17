@@ -16,7 +16,6 @@
 }
 
 body {
-  font-size: 28px;
   font-weight: 800;
   font-family: "Manrope", sans-serif;
 
@@ -61,13 +60,16 @@ body {
 }
 
 .main .content {
+  font-size: 28px;
+
   padding: 0 5%;
-  margin-bottom: 10%;
+  margin-bottom: 50px;
 
   color: #fff;
 }
 
 .main .divider {
+  margin-bottom: 50px;
   padding: 0 50px;
 
   display: flex;
@@ -102,12 +104,15 @@ body {
 }
 
 @media (max-width: 600px) {
+  .main {
+    width: 90%;
+  }
   .divider-mobile {
     display: flex;
   }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1920px) {
   .divider-mobile {
     display: none;
   }
